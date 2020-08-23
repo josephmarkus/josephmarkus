@@ -3,8 +3,15 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
+require("dotenv").config()
 
 module.exports = {
-  /* Your site config here */
-  plugins: [],
+  plugins: [
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: process.env.AWS_BUCKET_NAME,
+      },
+    },
+  ],
 }
