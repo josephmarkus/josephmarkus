@@ -11,6 +11,8 @@ module.exports = {
       resolve: `gatsby-plugin-s3`,
       options: {
         bucketName: process.env.AWS_BUCKET_NAME,
+        protocol: "https",
+        hostname: "www.josephmarkus.co.uk",
       },
     },
   ],
