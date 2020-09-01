@@ -13,11 +13,8 @@ export default function Contact() {
           <a href="https://www.linkedin.com/in/joseph-markus-964a68104/">
             LinkedIn
           </a>
-          , <a href="https://github.com/josephmarkus">GitHub</a> or you can
-          email me{" "}
-          <a href="mailto:joseph.markus@outlook.com">
-            joseph.markus@outlook.com
-          </a>
+          , <a href="https://github.com/josephmarkus">GitHub</a> or you can{" "}
+          <a href="mailto:joseph.markus@outlook.com">email me</a>
         </p>
       </div>
     </>

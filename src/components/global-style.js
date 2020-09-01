@@ -1,4 +1,4 @@
-import { rgba } from "polished"
+import { rgba, rem } from "polished"
 import { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
@@ -33,6 +33,10 @@ const GlobalStyle = createGlobalStyle`
   h5,
   h6 {
     color: #DB0B77;
+  }
+
+  p {
+    margin-bottom: ${rem("24px")};
   }
 `
 
