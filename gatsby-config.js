@@ -59,5 +59,17 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Software Engineer Joseph Markus`,
+        short_name: `Joseph Markus`,
+        start_url: `/`,
+        background_color: `#021326`,
+        theme_color: `#DB0B77`,
+        display: `standalone`,
+        icon: `src/images/icon.png`,
+      },
+    },
   ],
 }
