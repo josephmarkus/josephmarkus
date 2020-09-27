@@ -6,6 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `Joseph Markus`,
     description: `I am a Software Engineer based in London, UK. I have been coding since 2011. I currently work at Simply Business, an online broker of business insurance.`,
+    siteUrl: "https://www.josephmarkus.co.uk/",
   },
   plugins: [
     `gatsby-plugin-layout`,
