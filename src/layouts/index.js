@@ -1,6 +1,6 @@
 import React from "react"
 
-import { DefaultLayout } from "./default-layout"
+import { DefaultLayout } from "./default"
 import { GlobalStyle } from "../components/global-style"
 
 export default props => {

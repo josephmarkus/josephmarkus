@@ -1,0 +1,294 @@
+---
+title: How to deploy a static site with GatsbyJS, using AWS S3 and CloudFront
+date: 2020-09-27
+---
+
+import { PublicationDate } from "../../components/publication-date"
+
+# How to deploy a static site with GatsbyJS, using AWS S3 and CloudFront
+
+<PublicationDate date="2020-09-27" />
+
+## Intro
+
+This is a practical guide for those looking to get a quick start. It's
+always best to refer to exhaustive resources that go into much more
+detail on what, why and how. See other resources section at the bottom
+of the article.
+
+It's useful for any developer to get their hands on Amazon Web Services (AWS). AWS provides
+great amount of flexibility, but with flexibility comes a great
+deal of gotchas. I hope I cover these well in this article, so that
+you don't have to spend too much time Googling for answers. If there's
+anything that can be improved in this article, [do let me know](/about/#contact).
+
+## You will need:
+
+1. A domain
+1. Github account
+1. AWS account
+
+## What we will cover:
+
+1. Add gatsby-plugin-s3 plugin
+1. Reirect www to non-www
+1. Setup S3 bucket
+1. Create SSL certificate
+1. Setup CloudFront
+1. Create IAM user
+1. Deploy app
+
+## Let's get started
+
+I bought a domain and it's now available in my AWS account.
+
+I want to create a static site using React and GatsbyJS and deploy it
+to AWS S3 bucket.
+
+I want to keep my costs to a minimum. Using a Content Delivery Network
+(CDN) will help me to 1) improve site load times, 2) reduce number of
+requests from origin through serving cached version of the site, 3)
+protect my site from distributed denial-of-service (DDoS) attacks.
+
+1. Let's [create a new GitHub repository](https://docs.github.com/en/github/getting-started-with-github/create-a-repo)
+
+2. [Setup GatsbyJS](https://www.gatsbyjs.com/docs/quick-start/)
+
+3. [Install gatsby-plugin-s3](https://www.gatsbyjs.com/plugins/gatsby-plugin-s3/) and make
+   sure that you `gatsby-config.js` has all the right configuration that might look
+   something like this:
+
+```
+{
+  {
+    resolve: 'gatsby-plugin-s3',
+    options: {
+      bucketName: process.env.AWS_BUCKET_NAME,
+      protocol: "https",
+      hostname: "www.example.com",
+    },
+  }
+}
+```
+
+## Redirect www to non-www
+
+If you want to redirect your users from `www.example.co.uk` to
+`example.co.uk`, you will need to setup two S3 buckets. That's
+because you need one S3 bucket per domain. And then you can redirect
+from one bucket to another.
+
+Alternatively, setup an alias for `www.example.co.uk` as my bucket
+is for `example.co.uk`.
+
+Go to your AWS Console > Services > Route 53 > Hosted Zones > click on
+your domain name. Now click Create record > Simple routing > Define
+simple record.
+
+Under Record name enter `www.example.co.uk`.
+
+Under Value/Route traffic to select Alias to another record in this
+hosted zone, then US East (N. Virginia) [us-east-1], and then
+`example.co.uk`.
+
+Under Record type pick A.
+
+Under Routing policy pick Simple routing.
+
+## Setup S3 bucket
+
+Let's go back to [AWS console](https://console.aws.amazon.com/) and
+navigate to Services > S3 > Create bucket
+
+Pick your domain name as your bucket name: `example.co.uk`
+
+Pick a region. It can be whatever is closest to your home location -
+EU (London)
+
+Once complete, your bucket by default will not be accessible by
+anyone. Click on the bucket > Permissions > Block public access >
+Edit. Uncheck all options and save your changes.
+
+While still inside your bucket settings and Permissions tab, go to
+Bucket Policy. You will want to setup a policy that gives Read access
+to anyone visiting your site. There's [a bunch of documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html) out
+there, but you want something that looks like this:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::example.co.uk/*"
+        }
+    ]
+}
+```
+
+The date identifies when policy was originally created.It's not
+today's date, don't change it.
+
+The bit you want to change is next to Resource. In this case it reads
+"example.co.uk/\*". It's a unique Amazon Resource Name (ARN)
+identifier. In this case, it's my S3 bucket name. It simply reads as -
+allow anyone to read any item on this S3 bucket.
+
+## Create SSL certificate
+
+Okay, the S3 bucket has been setup. Let's setup your SSL certificate
+for the domain. Nobody likes HTTP anymore. Go back to AWS Console >
+Services > Certificate Manager > Request a certificate > Request a
+public certificate > Request a certificate
+
+Now, let's add domains. In my case I added
+
+`www.example.co.uk`
+
+and
+
+`example.co.uk`
+
+Pick DNS validation, then skip Add tags section, click Confirm and
+request
+
+As your domain is on Route 53, AWS will automatically do DNS
+validation for you. Make sure that in your certificates entry Status
+tab shows Issued next to your domains. This is important before you
+proceed further.
+
+## Setup CloudFront
+
+Let's setup CloudFront distribution. Let's go back to [AWS console](https://console.aws.amazon.com/) and navigate to Services >
+CloudFront > Create Distribution > Get Started.
+
+There's a few things to fill in, but as soon as you add Origin Domain
+Name, a bunch of other things get pre-filled and you have some decent
+defaults.
+
+As you click into Origin Domain Name, a handy dropdown pops up showing
+your S3 bucket. YOU DO NOT WANT THAT - "You must instead use your S3
+bucket’s Static Website Hosting Endpoint as the CloudFront origin" -
+this is [from the docs](https://www.gatsbyjs.com/docs/deploying-to-s3-cloudfront/#setting-up-cloudfront) for gatsby-plugin-s3 documentation.
+
+Bad:
+
+`example.co.uk.s3.amazonaws.com`
+
+Good:
+
+`example.co.uk.s3-website.eu-west-2.amazonaws.com`
+
+And here's why:
+
+once your CloudFront is setup and everything works well, try to
+navigate to a page like `example.co.uk/about/`. You will get Access
+Denied error from CloudFront.
+
+If you want more detail - read a section in that last link.
+
+Next to Viewer Protocol Policy pick Redirect HTTP to HTTPS. Just in
+case anyone ends up on HTTP version of the site, you will want to
+redirect them to HTTPS. This is exactly what this option does. If you
+don't pick this, you will end up getting all sorts of errors on your
+site where some content will not load.
+
+At distribution settings next to Alternate Domain Names (CNAMEs) enter
+your domains. In this case I added:
+
+`www.example.co.uk`
+
+and
+
+`example.co.uk`
+
+At SSL Certificate section DO NOT use the default. Default is used
+when your website url is `https://123456abcdef.cloudfront.net/`. Pick
+Custom SSL Certificate. When you click into the field, it will allow
+you to pick your previously created SSL certificate. Pick that.
+
+At Default root object add:
+
+`index.html`
+
+This is important. The first time I setup CloudFront, I skipped this
+bit and I couldn't figure out why hitting my website URL was showing
+Access Denied. You have to instruct CloudFront to go to index.html as
+default entry point.
+
+If you make a mistake
+
+Don't worry, you can always come back and edit your existing
+CloudFront distribution. Once you make an edit, go to Invalidations
+tab and click Create Invalidation, then in Object Paths section enter
+
+`/*`
+
+This will invalidate every object in your S3 bucket, so that you can
+see your CloudFront updated distribution.
+
+Redirect your domains to your CloudFront distribution URLs
+
+Go to your AWS Console > Services > Route 53 > Hosted Zones > click on
+your domain name. Now click Create record > Simple routing > Define
+simple record.
+
+Then, under Value/Route traffic to pick Alias to CloudFront
+distribution. That's not the same as where you created your S3 bucket.
+This is specific to CloudFront.
+
+Then when you click into the third field, an entry for CloudFront
+should appear. If it doesn't, just wait a bit. In my case, nothing
+showed up for 20-30 minutes and I was wondering what was going on and
+what was the value that I had to put in there. Just wait. If you've
+just created a CloudFront distribution, it's a bit slow to propagate.
+
+Once it's there, pick your CloudFront distribution entry.
+
+Then, under Record type, pick A. You can see it the explanation
+beneath that this is an appropriate option for CloudFront.
+
+Then, US East (N. Virginia) [us-east-1]
+
+## Create IAM user
+
+To be able to deploy from your command line, you will want to create a
+new user on AWS.
+
+Go to AWS console > Services > IAM > add user > enter user name (e.g.
+"app-deploy") > pick Programmatic access > Next
+
+Create group > enter Group name (e.g. "Deployment") > check
+AdministratorAccess > Create group > Next
+
+Skip tags and straight to Review section > Create user
+
+Make a note of Access key ID and Secret access key. Once you past this
+section, you won't be able to access Secret access key
+
+## Deploy app
+
+Inside your app folder go to package.json under scripts create a new
+entry called deploy:
+
+```
+"scripts": {
+  "deploy": "gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id YOUR-CLOUDFRONT-DISTRIBUTION-ID-HERE --paths \'/*\'"
+}
+```
+
+Your CloudFront distribution ID looks something like this -
+X0ABC1DEFG2HI3
+
+You can find it in AWS console > Services > CloudFront > see ID column
+
+## Other resources
+
+- [Configuring a static website using a custom domain registered with Route 53](https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html)
+- [Amazon CloudFront](https://aws.amazon.com/cloudfront/)
+- [Bucket Policy Examples](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
+- [Specifying a Default Root Object](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html)
+- [Using DNS to Validate Domain Ownership](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)

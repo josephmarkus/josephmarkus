@@ -1,74 +1,78 @@
 import React from "react"
 import { Link } from "gatsby"
-import { rgba, rem } from "polished"
+import { rem } from "polished"
 import styled from "styled-components"
 
-const Container = styled.header`
-  border-bottom: 1px solid ${rgba("#262626", 0.8)};
-`
+import { Container } from "./container"
 
 const Navigation = styled.nav`
   display: flex;
 `
 
 const List = styled.ul`
+  width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-left: auto;
-`
 
-const ListItem = styled.li`
-  border-left: 1px solid ${rgba("#262626", 0.8)};
-`
-
-const LogoLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  padding: ${rem("16px")};
-  font-size: ${rem("18px")};
-  font-family: "Permanent Marker", cursive;
-  background-color: transparent;
-  color: #db0b77;
-
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: transparent;
+  @media (min-width: 728px) {
+    width: calc(100% + calc(${rem("24px")} * 2));
+    margin-right: ${rem("-24px")};
+    margin-left: ${rem("-24px")};
   }
 `
 
-const StyledLink = styled(Link)`
+const ListItem = styled.li`
+  &:first-of-type {
+    margin-right: auto;
+  }
+`
+
+const StyledLink = styled(Link).attrs(props => ({
+  activeStyle: {
+    color: "rgba(255, 255, 255, 0.7)",
+    backgroundImage: 'url("/paint-mark.svg")',
+  },
+}))`
   display: block;
   padding: ${rem("16px")};
   font-size: ${rem("18px")};
-  font-family: "Permanent Marker", cursive;
+  color: rgb(var(--primary-color));
   background-color: transparent;
-  color: #db0b77;
+  background-size: 105%;
+  background-position: -50% 50%;
+  background-repeat: no-repeat;
 
   @media (min-width: 728px) {
     padding: ${rem("24px")};
   }
 
   &:hover,
-  &:focus,
-  &:active {
-    background-color: ${rgba("#DB0B77", 0.5)};
-    color: ${rgba(255, 255, 255, 0.8)};
+  &:focus {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    background-image: url("/paint-mark.svg");
   }
 `
 
-const Header = props => {
-  const { path } = props
+const LogoLink = styled(StyledLink)`
+  font-weight: bold;
+`
+
+const Header = () => {
   return (
-    <Container>
+    <Container as="header">
       <Navigation>
-        {path !== "/" && <LogoLink to="/">Joseph Markus</LogoLink>}
         <List>
           <ListItem>
-            <StyledLink to="/about">About</StyledLink>
+            <LogoLink to="/">Joseph Markus</LogoLink>
           </ListItem>
           <ListItem>
-            <StyledLink to="/contact">Contact</StyledLink>
+            <StyledLink to="/about/">About</StyledLink>
+          </ListItem>
+          <ListItem>
+            <StyledLink to="/blog/" partiallyActive={true}>
+              Blog
+            </StyledLink>
           </ListItem>
         </List>
       </Navigation>
