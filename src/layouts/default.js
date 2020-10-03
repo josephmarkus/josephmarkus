@@ -10,8 +10,8 @@ import { useSiteMetadata } from "../components/use-site-metadata"
 
 const DefaultLayout = props => {
   const { children, path } = props
-  const { siteURL } = useSiteMetadata()
-  const pathname = `${siteURL}${path}`
+  const { siteUrl } = useSiteMetadata()
+  const pathname = `${siteUrl}${path}`
 
   return (
     <>
