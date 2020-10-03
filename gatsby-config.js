@@ -25,6 +25,8 @@ module.exports = {
         path: `${__dirname}/src/pages/blog/`,
       },
     },
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -32,6 +34,17 @@ module.exports = {
           default: require.resolve("./src/layouts/posts.js"),
         },
         gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 670,
+              linkImagesToOriginal: false,
+              backgroundColor: "none",
+              disableBgImage: true,
+              withWebp: true,
+              showCaptions: true,
+            },
+          },
           {
             resolve: `gatsby-remark-highlight-code`,
             options: {
@@ -49,7 +62,6 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-s3`,
       options: {
