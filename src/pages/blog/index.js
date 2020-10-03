@@ -36,7 +36,7 @@ export default function Blog({ data }) {
           } = node
           return (
             <li key={slug}>
-              <Link to={`/blog/${slug}`}>
+              <Link to={`/blog/${slug}/`}>
                 <PostTitle>{title}</PostTitle>
               </Link>
               <StyledPublicationDate date={date} />
