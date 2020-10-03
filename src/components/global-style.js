@@ -31,6 +31,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: rgba(var(--primary-color), 0.9);
   }
 
+  code {
+    background-color: ${rgba("#262626", 0.7)};;
+  }
+
   h1,
   h2,
   h3,

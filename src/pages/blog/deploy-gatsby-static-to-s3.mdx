@@ -28,15 +28,19 @@ article, [do let me know](/about/#contact).
 
 ## You will need:
 
-1. Domain (via Amazon Route 53 or elsehwere) 1. Github account 1. AWS account
+1. Domain (via Amazon Route 53 or elsehwere)
+1. Github account
+1. AWS account
 
 ## What we will cover:
 
-1. [Add gatsby-plugin-s3 plugin](#lets-get-started) 1. [Redirect www to
-   non-www](#redirect-www-to-non-www) 1. [Setup S3 bucket](#setup-s3-bucket) 1.
-   [Create SSL certificate](#create-ssl-certificate) 1. [Setup
-   CloudFront](#setup-cloudfront) 1. [Create IAM user](#create-iam-user) 1. [Deploy
-   app](#deploy-app)
+1. [Add gatsby-plugin-s3 plugin](#lets-get-started)
+1. [Redirect www to non-www](#redirect-www-to-non-www)
+1. [Setup S3 bucket](#setup-s3-bucket)
+1. [Create SSL certificate](#create-ssl-certificate)
+1. [Setup CloudFront](#setup-cloudfront)
+1. [Create IAM user](#create-iam-user)
+1. [Deploy app](#deploy-app)
 
 ## Let's get started
 
@@ -53,24 +57,26 @@ version of the site, 3) protect my site from distributed denial-of-service
 A CDN will also keep your AWS costs at a minimum as previously requested S3
 bucket resources will be cached by CloudFront
 
-1. Let's [create a new GitHub
-   repository](https://docs.github.com/en/github/getting-started-with-github/create-a-repo)
+1. Let's [create a new GitHub repository](https://docs.github.com/en/github/getting-started-with-github/create-a-repo)
 
 2. [Setup GatsbyJS](https://www.gatsbyjs.com/docs/quick-start/)
 
-3. [Install
-   gatsby-plugin-s3](https://www.gatsbyjs.com/plugins/gatsby-plugin-s3/) and make
+3. [Install gatsby-plugin-s3](https://www.gatsbyjs.com/plugins/gatsby-plugin-s3/) and make
    sure that your `gatsby-config.js` has all the right configuration. For this
    particular plugin the configuration might look something like this:
 
-````{
+```
+{
   {
-    resolve: 'gatsby-plugin-s3', options: {
-      bucketName: process.env.AWS_BUCKET_NAME, protocol: "https", hostname:
-      "www.example.com",
+    resolve: 'gatsby-plugin-s3',
+    options: {
+      bucketName: process.env.AWS_BUCKET_NAME,
+      protocol: "https",
+      hostname: "www.example.com",
     },
   }
-} ```
+}
+```
 
 ## Redirect www to non-www
 
@@ -83,14 +89,12 @@ Alternatively, you can setup a DNS alias for `example.co.uk`. Setting up an
 alias is a little simpler, but it means that users will be able to reach your
 site on both domains - `www.example.co.uk` and `example.co.uk`.
 
-To setup an alias, go to your AWS Console > Services > Route 53 > Hosted Zones >
-click on your domain name. Now click Create record > Simple routing > Define
-simple record.
+To setup an alias, go to your `AWS Console` > `Services` > `Route 53` > `Hosted Zones` >
+click on your domain name. Now click `Create record` > `Simple routing` > `Define simple record`.
 
 Under Record name enter `www.example.co.uk`.
 
-Under `Value/Route traffic` select `Alias to another record in this hosted
-zone`, then `US East (N. Virginia) [us-east-1]`, and then `example.co.uk`.
+Under `Value/Route traffic` select `Alias to another record in this hosted zone`, then `US East (N. Virginia) [us-east-1]`, and then `example.co.uk`.
 
 Under `Record type` pick `A`.
 
@@ -98,54 +102,54 @@ Under `Routing policy` pick `Simple routing`.
 
 ## Setup S3 bucket
 
-Let's go back to [AWS console](https://console.aws.amazon.com/) and navigate to
-Services > S3 > Create bucket
+Let's go back to [AWS Console](https://console.aws.amazon.com/) and navigate to
+`Services` > `S3` > `Create bucket`
 
 Pick your domain name as your bucket name: `example.co.uk`
 
-Pick a region. It can be whatever is closest to your home location (e.g. `EU
-(London)`)
+Pick a region. It can be whatever is closest to your home location (e.g. `EU (London)`)
 
 Once complete, your bucket by default will not be accessible by anyone. To
-change that, click on the bucket > Permissions > Block public access > Edit.
+change that, click on the bucket > `Permissions` > `Block public access` > `Edit`.
 Uncheck all options and save your changes.
 
-While still inside your bucket settings and `Permissions` tab, go to `Bucket
-Policy`. You will want to setup a policy that gives Read access to anyone
-visiting your site. There's [a bunch of
-documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
-out there, but you want something that looks like this:
+While still inside your bucket settings and `Permissions` tab, go to `Bucket Policy`. You will want to setup a policy that gives Read access to anyone visiting your site. There's [a bunch of documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html) out there, but you want something that looks like this:
 
-``` {
-    "Version": "2012-10-17", "Statement": [
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
         {
-            "Sid": "PublicReadGetObject", "Effect": "Allow", "Principal": "*",
-            "Action": "s3:GetObject", "Resource": "arn:aws:s3:::example.co.uk/*"
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::example.co.uk/*"
         }
     ]
-} ```
+}
+```
 
-The date identifies when policy was originally created. It's not today's date,
-don't change it.
+The date identifies when policy was originally created. It's not
+today's date, don't change it.
 
 The bit you want to change is next to `Resource`. In this case it reads
-"example.co.uk/\*". It's a unique Amazon Resource Name (ARN) identifier. In this
-case, it's your S3 bucket name. It simply reads as - allow anyone to read any
-item on this S3 bucket.
+"example.co.uk/\*". It's a unique Amazon Resource Name (ARN)
+identifier. In this case, it's your S3 bucket name. It simply reads as -
+allow anyone to read any item on this S3 bucket.
 
 Okay, the S3 bucket has been setup.
 
 ## Create SSL certificate
 
 Let's setup your SSL certificate for the domain, so that your visitors can
-confidently hit HTTPS when visiting your site. Go back to AWS Console > Services
-> Certificate Manager > Request a certificate > Request a public certificate >
-Request a certificate
+confidently hit HTTPS when visiting your site. Go back to `AWS Console` > `Services` >
+`Certificate Manager` > `Request a certificate` > `Request a public certificate` > `Request a certificate`
 
 Now, let's add domains. In my case I added `www.example.co.uk` and
 `example.co.uk`
 
-Pick DNS validation, then skip Add tags section, click Confirm and request
+Pick `DNS validation`, then skip `Add tags` section, click `Confirm and request`
 
 As your domain is on Route 53, AWS will automatically do DNS validation for you.
 Make sure that in your certificates entry Status tab shows Issued next to your
@@ -153,18 +157,14 @@ domains. This is important before you proceed further.
 
 ## Setup CloudFront
 
-Let's setup CloudFront distribution. Let's go back to [AWS
-console](https://console.aws.amazon.com/) and navigate to Services > CloudFront
-> Create Distribution > Get Started.
+Let's setup CloudFront distribution. Let's go back to [AWS Console](https://console.aws.amazon.com/) and navigate to `Services` > `CloudFront` > `Create Distribution` > `Get Started`.
 
-There's a few things to fill in, but as soon as you add Origin Domain Name, a
+There's a few things to fill in, but as soon as you add `Origin Domain Name`, a
 bunch of other things get pre-filled and you have some decent defaults.
 
-As you click into Origin Domain Name, a handy dropdown pops up showing your S3
+As you click into `Origin Domain Name`, a handy dropdown pops up showing your S3
 bucket. YOU DO NOT WANT THAT - "You must instead use your S3 bucket’s Static
-Website Hosting Endpoint as the CloudFront origin" - this is [from the
-docs](https://www.gatsbyjs.com/docs/deploying-to-s3-cloudfront/#setting-up-cloudfront)
-for gatsby-plugin-s3 documentation.
+Website Hosting Endpoint as the CloudFront origin" - this is [from the docs](https://www.gatsbyjs.com/docs/deploying-to-s3-cloudfront/#setting-up-cloudfront) for gatsby-plugin-s3 documentation.
 
 Bad ❌
 
@@ -179,13 +179,11 @@ And here's why:
 once your CloudFront is setup and everything works well, try to navigate to a
 page on your site. For example, navigate to About page (or any other page in
 your project) by entering the url in your browser - `example.co.uk/about/`. You
-will get `Access Denied` error from CloudFront. There's more detail [in this
-article](https://www.gatsbyjs.com/docs/deploying-to-s3-cloudfront/#setting-up-cloudfront),
-as to why that is the case.
+will get `Access Denied` error from CloudFront. There's more detail [in this article](https://www.gatsbyjs.com/docs/deploying-to-s3-cloudfront/#setting-up-cloudfront), as to why that is the case.
 
 Next to `Compress Objects Automatically` pick `Yes` to make sure that CloudFront
 serves compressed assets using GZIP. You can later verify this checking
-Developer Tools > Network > pick an asset and then under Response Headers. It
+`Developer Tools` > `Network` > pick an asset and then under Response Headers. It
 should read `Content-Encoding: gzip`.
 
 Next to `Viewer Protocol Policy` pick `Redirect HTTP to HTTPS`. Just in case
@@ -198,9 +196,7 @@ At distribution settings next to `Alternate Domain Names (CNAMEs)` enter your
 domains. In this case I added: `www.example.co.uk` and `example.co.uk`
 
 At `SSL Certificate` section DO NOT use the default. Default is used when your
-website url is `https://123456abcdef.cloudfront.net/`. Pick `Custom SSL
-Certificate`. When you click into the field, it will allow you to pick your
-previously created SSL certificate. Pick that.
+website url is `https://123456abcdef.cloudfront.net/`. Pick `Custom SSL Certificate`. When you click into the field, it will allow you to pick your previously created SSL certificate. Pick that.
 
 At Default root object add `index.html` This is important. The first time I
 setup CloudFront, I skipped this bit and I couldn't figure out why hitting my
@@ -210,20 +206,18 @@ to `index.html` as default entry point.
 ### If you make a mistake
 
 Don't worry, you can always come back and edit your existing CloudFront
-distribution. Once you make an edit, go to Invalidations tab and click Create
-Invalidation, then in Object Paths section enter `/*`
+distribution. Once you make an edit, go to `Invalidations` tab and click `Create Invalidation`, then in `Object Paths` section enter `/*`
 
 This will invalidate every object in your S3 bucket, so that you can see your
 CloudFront updated distribution.
 
 ### Redirect your domains to your CloudFront distribution URLs
 
-Go to your AWS Console > Services > Route 53 > Hosted Zones > click on your
-domain name. Now click Create record > Simple routing > Define simple record.
+Go to your `AWS Console` > `Services` > `Route 53` > `Hosted Zones` > click on your
+domain name. Now click `Create record` > `Simple routing` > `Define simple record`.
 
-Then, under Value/Route traffic to pick Alias to CloudFront distribution. That's
-not the same as where you created your S3 bucket. This is specific to
-CloudFront.
+Then, under `Value/Route traffic` to pick `Alias to CloudFront distribution`. That's
+not the same as where you created your S3 bucket. This is specific to CloudFront.
 
 Then when you click into the third field, an entry for CloudFront should appear.
 If it doesn't, just wait a bit. In my case, nothing showed up for 20-30 minutes
@@ -243,15 +237,14 @@ Then, `US East (N. Virginia) [us-east-1]`
 To be able to deploy from your command line, you will want to create a new user
 on AWS.
 
-Go to AWS console > Services > IAM > add user > enter user name (e.g.
-"app-deploy") > pick Programmatic access > Next
+Go to `AWS console` > `Services` > `IAM` > add user > enter user name (e.g.
+"app-deploy") > pick `Programmatic access` > `Next`
 
-Create group > enter Group name (e.g. "Deployment") > check Administrator Access
-> Create group > Next
+`Create group` > enter `Group name` (e.g. "Deployment") > check `Administrator Access` > `Create group` > `Next`
 
-Skip tags and straight to Review section > Create user
+Skip `Tags` and straight to `Review` section > `Create user`
 
-Make a note of Access key ID and Secret access key. Once you past this section,
+Make a note of `Access key ID` and `Secret access key`. Once you past this section,
 you won't be able to access Secret access key
 
 ## Deploy app
@@ -259,23 +252,20 @@ you won't be able to access Secret access key
 Inside your app folder go to package.json under scripts create a new entry
 called deploy:
 
-``` "scripts": {
-  "deploy": "gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation
-  --distribution-id YOUR-CLOUDFRONT-DISTRIBUTION-ID-HERE --paths \'/*\'"
-} ```
+```
+"scripts": {
+  "deploy": "gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id YOUR-CLOUDFRONT-DISTRIBUTION-ID-HERE --paths \'/*\'"
+}
+```
 
 Your CloudFront distribution ID looks something like this - `X0ABC1DEFG2HI3`
 
-You can find it in AWS console > Services > CloudFront > see ID column
+You can find it in `AWS Console` > `Services` > `CloudFront` > see `ID` column
 
 ## Other resources
 
-- [Configuring a static website using a custom domain registered with Route
-53](https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html)
-- [Amazon CloudFront](https://aws.amazon.com/cloudfront/) - [Bucket Policy
-Examples](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
-- [Specifying a Default Root
-Object](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html)
-- [Using DNS to Validate Domain
-Ownership](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
-````
+- [Configuring a static website using a custom domain registered with Route 53](https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html)
+- [Amazon CloudFront](https://aws.amazon.com/cloudfront/)
+- [Bucket Policy Examples](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
+- [Specifying a Default Root Object](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html)
+- [Using DNS to Validate Domain Ownership](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
