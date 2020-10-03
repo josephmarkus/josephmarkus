@@ -11,7 +11,7 @@ const SEO = ({ meta = [], title, path }) => {
   return (
     <Helmet
       htmlAttributes={{
-        lang: `en`,
+        lang: `en-GB`,
       }}
       title={metaTitle}
       meta={[
@@ -29,7 +29,7 @@ const SEO = ({ meta = [], title, path }) => {
         },
         {
           property: `og:url`,
-          content: path,
+          content: `${siteUrl}${path}`,
         },
         {
           property: `og:image`,
