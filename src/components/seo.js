@@ -1,43 +1,39 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
 
-const SEO = ({ description, lang = `en`, meta = [], title = "" }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-          }
-        }
-      }
-    `
-  )
+import { useSiteMetadata } from "../components/use-site-metadata"
 
-  const metaDescription = description || site.siteMetadata.description
+const SEO = ({ meta = [], title, pathname }) => {
+  const { description, author, siteURL } = useSiteMetadata()
+  const metaTitle = title || ""
 
   return (
     <Helmet
       htmlAttributes={{
-        lang,
+        lang: `en`,
       }}
-      title={title}
-      titleTemplate={`%s ${site.siteMetadata.title}`}
+      title={metaTitle}
       meta={[
         {
           name: `description`,
-          content: metaDescription,
+          content: description,
         },
         {
           property: `og:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           property: `og:description`,
-          content: metaDescription,
+          content: description,
+        },
+        {
+          property: `og:url`,
+          content: pathname,
+        },
+        {
+          property: `og:image`,
+          content: `${siteURL}/icons/icon-512x512.png`,
         },
         {
           property: `og:type`,
@@ -49,15 +45,15 @@ const SEO = ({ description, lang = `en`, meta = [], title = "" }) => {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: author,
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           name: `twitter:description`,
-          content: metaDescription,
+          content: description,
         },
       ].concat(meta)}
     />
@@ -65,10 +61,9 @@ const SEO = ({ description, lang = `en`, meta = [], title = "" }) => {
 }
 
 SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
+  pathname: PropTypes.string,
 }
 
 export { SEO }

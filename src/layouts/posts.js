@@ -4,6 +4,8 @@ import styled from "styled-components"
 import { rem } from "polished"
 import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
 
+import { SEO } from "../components/seo"
+
 deckDeckGoHighlightElement()
 
 const Container = styled.div`
@@ -19,7 +21,12 @@ const Container = styled.div`
 const PostsLayout = props => {
   const { children } = props
 
-  return <Container>{children}</Container>
+  return (
+    <>
+      <SEO title={props.pageContext.frontmatter.title} />
+      <Container>{children}</Container>
+    </>
+  )
 }
 
 PostsLayout.propTypes = {

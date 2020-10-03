@@ -4,9 +4,10 @@ require("dotenv").config()
 
 module.exports = {
   siteMetadata: {
+    author: `Joseph Markus`,
     title: `Joseph Markus`,
     description: `I am a Software Engineer based in London, UK. I have been coding since 2011. I currently work at Simply Business, an online broker of business insurance.`,
-    siteUrl: "https://josephmarkus.co.uk/",
+    siteURL: "https://josephmarkus.co.uk",
   },
   plugins: [
     `gatsby-plugin-layout`,
