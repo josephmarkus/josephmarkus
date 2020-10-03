@@ -1,14 +1,9 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import styled from "styled-components"
-import { rem } from "polished"
 
 import { SEO } from "../../components/seo"
 import { PublicationDate } from "../../components/publication-date"
-
-const StyledPublicationDate = styled(PublicationDate)`
-  font-size: ${rem("16px")};
-`
 
 const List = styled.ul`
   padding-left: 0;
@@ -39,7 +34,7 @@ export default function Blog({ data }) {
               <Link to={`/blog/${slug}/`}>
                 <PostTitle>{title}</PostTitle>
               </Link>
-              <StyledPublicationDate date={date} />
+              <PublicationDate date={date} />
             </li>
           )
         })}

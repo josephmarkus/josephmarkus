@@ -46,6 +46,7 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
     margin-top: ${rem("20px")};
+    margin-bottom: 0;
     font-size: ${rem("34px")};
     line-height: ${rem("42px")};
 
@@ -58,6 +59,7 @@ const GlobalStyle = createGlobalStyle`
 
   h2 {
     margin-top: ${rem("34px")};
+    margin-bottom: 0;
     font-size: ${rem("22px")};
     line-height: ${rem("28px")};
 
@@ -68,12 +70,18 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  h3 {
+    margin-top: ${rem("28px")};
+    margin-bottom: 0;
+  }
+
   main {
     p,
     pre,
     time,
     li {
-      margin-top: ${rem("28px")}; 
+      margin-top: ${rem("28px")};
+      margin-bottom: 0;
       font-size: ${rem("18px")};
       line-height: ${rem("28px")};
 
@@ -86,6 +94,10 @@ const GlobalStyle = createGlobalStyle`
 
   figure {
     margin: 0;
+  }
+
+  h1 + time {
+    margin-top: ${rem("-14px")}; 
   }
 
   figcaption {
