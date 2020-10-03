@@ -10,6 +10,11 @@ const StyledPublicationDate = styled(PublicationDate)`
   font-size: ${rem("16px")};
 `
 
+const List = styled.ul`
+  padding-left: 0;
+  list-style: none;
+`
+
 const PostTitle = styled.h2`
   margin: 0;
 `
@@ -23,7 +28,7 @@ export default function Blog({ data }) {
     <>
       <SEO title="Blog" />
       <h1>Blog</h1>
-      <ol>
+      <List>
         {nodes.map(node => {
           const {
             slug,
@@ -38,7 +43,7 @@ export default function Blog({ data }) {
             </li>
           )
         })}
-      </ol>
+      </List>
     </>
   )
 }

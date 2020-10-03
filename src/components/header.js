@@ -13,6 +13,8 @@ const List = styled.ul`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  list-style: none;
+  padding-left: 0;
 
   @media (min-width: 728px) {
     width: calc(100% + calc(${rem("24px")} * 2));

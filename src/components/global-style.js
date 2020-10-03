@@ -79,6 +79,21 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
+
+  figure {
+    margin: 0;
+  }
+
+  figcaption {
+    display: block;
+    margin-top: ${rem("10px")};
+    font-size: ${rem("14px")};
+    line-height: ${rem("24px")};
+  }
+
+  .gatsby-resp-image-image {
+    box-shadow: none  !important;
+  }
 `
 
 export { GlobalStyle }
