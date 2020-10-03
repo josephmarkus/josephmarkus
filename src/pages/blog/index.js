@@ -21,7 +21,7 @@ export default function Blog({ data }) {
 
   return (
     <>
-      <SEO title="Joseph Markus' Blog" />
+      <SEO title="Joseph Markus' Blog" path="/blog/" />
       <h1>Blog</h1>
       <List>
         {nodes.map(node => {

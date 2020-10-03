@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 
 import { useSiteMetadata } from "../components/use-site-metadata"
 
-const SEO = ({ meta = [], title, pathname }) => {
+const SEO = ({ meta = [], title, path }) => {
   const { description, author, siteUrl } = useSiteMetadata()
   const metaTitle = title || ""
 
@@ -29,7 +29,7 @@ const SEO = ({ meta = [], title, pathname }) => {
         },
         {
           property: `og:url`,
-          content: pathname,
+          content: path,
         },
         {
           property: `og:image`,
@@ -63,7 +63,7 @@ const SEO = ({ meta = [], title, pathname }) => {
 SEO.propTypes = {
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
-  pathname: PropTypes.string,
+  path: PropTypes.string,
 }
 
 export { SEO }
