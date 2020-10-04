@@ -44,7 +44,6 @@ module.exports = {
               linkImagesToOriginal: false,
               backgroundColor: "none",
               disableBgImage: true,
-              withWebp: true,
               showCaptions: true,
             },
           },
