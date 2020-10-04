@@ -19,12 +19,12 @@ const Container = styled.div`
 `
 
 const PostsLayout = props => {
-  const { children, pageContext, path } = props
+  const { children, pageContext } = props
   const title = pageContext.frontmatter.title
 
   return (
     <>
-      <SEO title={title} path={path} />
+      <SEO title={title} />
       <Container>{children}</Container>
     </>
   )
