@@ -4,7 +4,7 @@ import { createGlobalStyle } from "styled-components"
 const GlobalStyle = createGlobalStyle`
   :root {
     /* #DB0B77 */
-    --primary-color: 219, 11, 119;
+    --primary-color: 241, 9, 133;
   }
 
   ::selection {
@@ -20,15 +20,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    background-color: rgba(var(--primary-color), 0.5);
     color: ${rgba(255, 255, 255, 0.7)};
     text-decoration: none;
+    border-bottom: 1px solid ${rgba(255, 255, 255, 0.4)};
   }
 
   a:hover,
   a:focus,
   a:active {
-    background-color: rgba(var(--primary-color), 0.9);
+    color: rgb(var(--primary-color));
   }
 
   code {

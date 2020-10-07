@@ -31,7 +31,7 @@ const ListItem = styled.li`
 
 const StyledLink = styled(Link).attrs(props => ({
   activeStyle: {
-    color: "rgba(255, 255, 255, 0.7)",
+    color: "rgba(255, 255, 255, 0.8)",
     backgroundImage: 'url("/paint-mark.svg")',
   },
 }))`
@@ -39,6 +39,7 @@ const StyledLink = styled(Link).attrs(props => ({
   padding: ${rem("16px")};
   font-size: ${rem("18px")};
   color: rgb(var(--primary-color));
+  border: none;
   background-color: transparent;
   background-size: 105%;
   background-position: -50% 50%;
@@ -51,7 +52,7 @@ const StyledLink = styled(Link).attrs(props => ({
   &:hover,
   &:focus {
     background-color: transparent;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.8);
     background-image: url("/paint-mark.svg");
   }
 `

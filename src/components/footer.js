@@ -8,7 +8,7 @@ import { Container } from "./container"
 const Description = styled.p`
   font-size: ${rem("18px")};
   background-color: transparent;
-  color: ${rgba(255, 255, 255, 0.4)};
+  color: ${rgba(255, 255, 255, 0.6)};
   text-align: center;
 `
 
