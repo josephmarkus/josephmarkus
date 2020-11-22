@@ -4,6 +4,10 @@ import styled from "styled-components"
 import { rem } from "polished"
 
 const StyledContainer = styled.div`
+  > *:first-child {
+    margin-top: 0;
+  }
+
   max-width: ${rem("670px")};
   margin: 0 auto;
 `

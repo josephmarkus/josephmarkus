@@ -8,8 +8,9 @@ const Time = styled.time`
   font-size: ${rem("16px")};
 `
 
-const PublicationDate = ({ date, ...props }) => {
-  const formattedDate = format(new Date(date), "MMMM d, yyyy")
+const PublicationDate = ({ date, dateFormat = "MMMM d, yyyy", ...props }) => {
+  const formattedDate = format(new Date(date), dateFormat)
+
   return (
     <Time dateTime={date} {...props}>
       {formattedDate}
@@ -19,6 +20,7 @@ const PublicationDate = ({ date, ...props }) => {
 
 PublicationDate.propTypes = {
   date: PropTypes.string,
+  dateFormat: PropTypes.string,
 }
 
 export { PublicationDate }

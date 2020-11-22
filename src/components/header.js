@@ -73,6 +73,9 @@ const Header = () => {
             <StyledLink to="/about/">About</StyledLink>
           </ListItem>
           <ListItem>
+            <StyledLink to="/cv/">CV</StyledLink>
+          </ListItem>
+          <ListItem>
             <StyledLink to="/blog/" partiallyActive={true}>
               Blog
             </StyledLink>

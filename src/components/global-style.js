@@ -73,9 +73,21 @@ const GlobalStyle = createGlobalStyle`
   h3 {
     margin-top: ${rem("28px")};
     margin-bottom: 0;
+    font-size: ${rem("20px")};
+    line-height: ${rem("24px")};
+
+    @media (min-width: 728px) {
+      margin-top: ${rem("64px")};
+      font-size: ${rem("22px")};
+      line-height: ${rem("28px")};
+    }
   }
 
   main {
+    h3 + p {
+      margin-top: 0;
+    }
+
     p,
     pre,
     time,
