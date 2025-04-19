@@ -71,8 +71,8 @@
       #footer-links {
         --gap-between-items: 0.5em;
         display: grid;
-        gap: var(--gap-between-items);
-        grid-template-columns: repeat(3, max-content);
+        column-gap: var(--gap-between-items);
+        grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
         margin: 0;
         padding-left: 0;
       }
