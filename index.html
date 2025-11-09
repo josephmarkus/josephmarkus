@@ -1,291 +1,593 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
-    <title>Joseph Markus, Senior Front-End Engineer</title>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>
+      Joseph Markus — Building thoughtful interfaces with precision and purpose
+    </title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
+      /* Design Tokens */
+      :root {
+        --layout-max-width: 1100px;
+        --content-max-width: 75ch;
+        --header-height: 64px;
+        --pad: clamp(1rem, 3vw, 2rem);
+
+        --ff-serif: "Instrument Serif", serif;
+        --ff-sans: "Inter", system-ui, sans-serif;
+        --fw-normal: 400;
+        --fw-medium: 500;
+        --fw-semibold: 600;
+
+        --fs-base: clamp(16px, 0.9rem + 0.3vw, 18px);
+        --fs-hero: clamp(2.2rem, 3vw + 1rem, 3.8rem);
+        --fs-h2: clamp(1.8rem, 1.4rem + 1.2vw, 2.6rem);
+        --lh-base: 1.7;
+
+        --clr-bg: #fafafa;
+        --clr-text: #222;
+        --clr-muted: #555;
+        --clr-line: #e9e9e9;
+        --clr-accent: #006ba1;
+        --clr-accent-hover: #0088c2;
+        --clr-pill-bg: #e9e9e9;
+        --clr-pill-text: #555;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --clr-bg: #111;
+          --clr-text: #f5f5f5;
+          --clr-muted: #b3b3b3;
+          --clr-line: #333;
+          --clr-accent: #4db6e6;
+          --clr-accent-hover: #6ec8f3;
+          --clr-pill-bg: #2a2a2a;
+          --clr-pill-text: #b3b3b3;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+      }
+
+      /* Base */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
       body {
         margin: 0;
-        background-color: #f9fafb;
-        color: #1f2937;
-        font-size: 16px;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
+        padding-top: var(--header-height);
+        background: var(--clr-bg);
+        color: var(--clr-text);
+        font-family: var(--ff-sans);
+        font-size: var(--fs-base);
+        line-height: var(--lh-base);
+        -webkit-font-smoothing: antialiased;
       }
-
-      main {
-        margin: 1em;
-        max-width: 75ch;
+      a {
+        color: var(--clr-accent);
+        text-decoration: none;
+        transition: color 0.2s ease;
       }
-
-      h1 {
-        margin: 0 0 0.88em;
-        font-size: 2.25em;
-        line-height: 1.11em;
-        text-wrap: balance;
-      }
-
-      h2 {
-        margin: 0 0 1em;
-        font-size: 1.5em;
-        line-height: 1.35;
-      }
-
-      h3 {
-        margin: 1.6em 0 0;
-        font-size: 1.25em;
-        line-height: 1.6;
-      }
-
-      h4 {
-        margin: 1.5em 0 0;
-        font-size: inherit;
-        line-height: 1.6;
-      }
-
-      a,
-      a:visited {
-        color: #2563eb;
-      }
-
       a:hover,
       a:active {
-        color: #1e40af;
+        color: var(--clr-accent-hover);
       }
-
       p {
-        font-size: 1rem;
-        line-height: 1.75;
-        margin-top: 1.25em;
+        color: var(--clr-muted);
+        margin: 0.5rem 0 1rem;
       }
-
-      img {
-        display: block;
-      }
-
-      #joseph-markus {
-        margin-top: 2em;
-        margin-bottom: 2em;
-      }
-
-      #footer-links {
-        --gap-between-items: 0.5em;
-        display: grid;
-        column-gap: var(--gap-between-items);
-        grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
-        margin: 0;
-        padding-left: 0;
-      }
-
-      #footer-links > li:not(:last-of-type)::after {
-        /* &middot; */
-        content: "\00B7";
-        padding-left: var(--gap-between-items);
-      }
-
-      #external-links {
-        display: inline-grid;
-        column-gap: 1em;
-        grid-template-columns: repeat(2, max-content);
-        padding: 0;
-      }
-
-      #external-links,
-      #external-links li {
-        margin: 0;
-      }
-
-      #external-links li {
-        line-height: 2.3;
-      }
-
-      #experience > li,
-      #external-links > li,
-      #footer-links > li {
-        list-style-type: none;
-      }
-
-      #experience {
-        padding-left: 0;
-      }
-
-      #experience > li:not(:last-of-type)::after {
-        content: "";
-        display: block;
-        background-color: #e5e7eb;
-        height: 1px;
-        margin-bottom: 1.5em;
-      }
-
-      footer {
-        margin: 1.6em 0 0;
-        padding: 0.5em 1em;
-        background-color: #e5e7eb;
-      }
-
-      footer p {
-        margin: 1em 0 0;
-      }
-
-      a {
-        display: inline-block;
-      }
-
-      ol,
       ul {
-        margin-top: 1.25em;
-        margin-bottom: 1.25em;
-        padding-left: 1.625em;
+        list-style: none;
+        padding: 0;
+        margin: 0;
       }
 
-      li {
-        margin: 0.5em 0;
-        line-height: 1.75;
+      /* Header */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        backdrop-filter: blur(8px);
+        background: color-mix(in oklab, var(--clr-bg) 85%, transparent);
+        border-bottom: 1px solid var(--clr-line);
+      }
+      .site-header__inner {
+        max-width: var(--layout-max-width);
+        margin: 0 auto;
+        min-height: var(--header-height);
+        padding: 1rem var(--pad);
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-content: center;
+        gap: 0.75rem;
+      }
+      .site-header__brand {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--ff-sans);
+        font-weight: var(--fw-semibold);
+      }
+      .site-header__nav-list {
+        display: grid;
+        grid-auto-flow: column;
+        gap: clamp(12px, 2vw, 28px);
+        font-family: var(--ff-sans);
+        font-weight: var(--fw-medium);
+      }
+      .site-header__nav-link {
+        color: var(--clr-text);
+        opacity: 0.9;
+      }
+      .site-header__nav-link:hover,
+      .site-header__nav-link:active {
+        opacity: 1;
+      }
+      @media (min-width: 768px) {
+        .site-header__inner {
+          height: var(--header-height);
+          min-height: auto;
+          padding: 0 var(--pad);
+          grid-template-columns: auto 1fr;
+          justify-items: end;
+          gap: 0;
+        }
+      }
+
+      /* Sections */
+      .section {
+        max-width: var(--layout-max-width);
+        margin: 0 auto;
+        padding: clamp(2rem, 6vw, 5rem) var(--pad);
+        border-top: 1px solid var(--clr-line);
+      }
+      .section:first-of-type {
+        padding-top: clamp(3rem, 10vw, 8rem);
+      }
+      .section__content {
+        max-width: var(--content-max-width);
+        margin: 0 auto;
+      }
+      .section__heading {
+        font-family: var(--ff-serif);
+        font-weight: var(--fw-normal);
+        font-size: var(--fs-h2);
+        color: var(--clr-text);
+        margin: 0;
+      }
+
+      /* Hero */
+      .hero__title {
+        font-family: var(--ff-serif);
+        font-weight: var(--fw-normal);
+        font-size: var(--fs-hero);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        margin: 0 0 1rem;
+        text-wrap: balance;
+      }
+      .hero__subtitle {
+        font-family: var(--ff-sans);
+        color: var(--clr-muted);
+        font-size: clamp(1rem, 0.9rem + 0.4vw, 1.15rem);
+        margin: 0;
+      }
+
+      /* About */
+      .about__media {
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .about__picture {
+        display: block;
+        width: 100%;
+        box-shadow: var(--shadow);
+        border-radius: 16px;
+        overflow: hidden;
+        aspect-ratio: 1 / 1;
+      }
+      .about__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .about__body {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 768px) {
+        .about__picture {
+          aspect-ratio: 16 / 9;
+        }
+      }
+      @media (min-width: 1200px) {
+        .about__media {
+          margin-left: calc(var(--pad) * -2);
+          margin-right: calc(var(--pad) * -2);
+          margin-bottom: 2rem;
+        }
+      }
+
+      /* Projects */
+      .projects__list {
+        display: grid;
+      }
+      .projects__item {
+        padding: 1.5rem 0;
+      }
+      .projects__title {
+        font-family: var(--ff-serif);
+        font-weight: var(--fw-normal);
+        font-size: clamp(1.4rem, 1rem + 1vw, 1.6rem);
+        color: var(--clr-accent);
+      }
+      .projects__stack-label {
+        font-size: 0.9rem;
+        color: var(--clr-muted);
+        margin: 1rem 0.35rem 0.5rem 0;
+      }
+      .projects__stack {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      @media (min-width: 768px) {
+        .projects__stack-label {
+          display: inline;
+          font-size: 0.85rem;
+          margin-top: 0.75rem;
+          margin-bottom: 0;
+        }
+      }
+      .projects__stack-item {
+        background: var(--clr-pill-bg);
+        color: var(--clr-pill-text);
+        padding: 0.25rem 0.6rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+      }
+
+      /* Animation */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 360ms ease, transform 420ms ease;
+      }
+      .js .fade-up.fade-up--complete {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .fade-up {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* Footer */
+      .site-footer {
+        border-top: 1px solid var(--clr-line);
+        text-align: center;
+        color: var(--clr-muted);
+        font-size: 0.95rem;
+        padding: 2rem var(--pad) 3rem;
       }
     </style>
   </head>
+
   <body>
-    <main>
-      <h1>Joseph Markus, Senior Front-End Engineer</h1>
-      <img
-        id="joseph-markus"
-        src="./assets/joseph-markus.jpeg"
-        alt="Joseph Markus"
-        width="230"
-        height="230"
-      />
-      <h2>About</h2>
-      <p>
-        I'm Joseph Markus, a Senior Front-End Engineer with 14 years of
-        experience designing and building user-facing applications for
-        businesses across fintech, insurance, and media. I currently lead a team
-        at <a href="https://www.simplybusiness.com">Simply Business</a>, where
-        we focus on front-end architecture and user experience for the US
-        insurance product.
-      </p>
-      <p>
-        My background spans high-performance React applications, design systems,
-        and team leadership. I enjoy working closely with product and design to
-        deliver features that are technically robust, accessible, and
-        thoughtfully executed.
-      </p>
-      <p>
-        I'm especially interested in roles where front-end engineering
-        contributes to the reliability and clarity of complex systems - whether
-        in regulated industries or data-intensive platforms.
-      </p>
-      <h2>Experience</h2>
-      <ol role="list" id="experience">
-        <li>
-          <a href="http://www.simplybusiness.com">
-            <img
-              src="./assets/simply-business.svg"
-              alt="Simply Business"
-              width="103"
-              height="26"
-            />
-          </a>
-          <h3>
-            Engineering Lead (Mar 2020 - Present)<br />Promoted from Mid-Level
-            &rarr; Senior &rarr; Lead
-          </h3>
-          <ul>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <div class="site-header__brand">
+          <a href="#top">Joseph&nbsp;Markus</a>
+        </div>
+        <nav class="site-header__nav" aria-label="Main navigation">
+          <ul class="site-header__nav-list">
+            <li><a class="site-header__nav-link" href="#about">About</a></li>
             <li>
-              Led a front-end team delivering high-impact projects (Price
-              Comparison Engine, Brand Campaign) while driving architectural
-              decisions and reducing tech debt
+              <a class="site-header__nav-link" href="#projects">Projects</a>
+            </li>
+            <li><a class="site-header__nav-link" href="#values">Values</a></li>
+            <li>
+              <a class="site-header__nav-link" href="#outside">Outside</a>
             </li>
             <li>
-              Oversaw the visual redesign of key products and contributed to the
-              <a href="https://mobius.simplybusiness.co.uk/"
-                >Mobius UI library</a
-              >, improving accessibility and reducing bundle size by 72%.
+              <a class="site-header__nav-link" href="#opportunities">Contact</a>
             </li>
           </ul>
-        </li>
-        <li>
-          <img src="./assets/eporta.png" alt="eporta" height="28" />
-          <em
-            >Acquired in 2021 by Shopify &mdash;
-            <a
-              href="https://businessofhome.com/articles/shopify-acquires-eporta"
-              >Article</a
-            ></em
-          >
-          <h3>Software Engineer (Dec 2018 - Mar 2020)</h3>
-          <ul>
-            <li>
-              Delivered user-focused features in a React-based B2B platform and
-              maintained the marketing site with consistent branding and UX
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="section fade-up" id="hero">
+        <div class="section__content">
+          <h1 class="hero__title">
+            Building thoughtful interfaces with precision and purpose
+          </h1>
+          <p class="hero__subtitle">
+            I'm a Senior Front-End Engineer and Engineering Lead with 14 years
+            of experience building web applications that balance clarity,
+            performance, and design integrity. My path into tech wasn't linear —
+            it began behind the lens of a camera — but that's where I first
+            learned the power of observation, attention to detail, and
+            storytelling. Those same instincts now shape how I build products
+            and lead teams.
+          </p>
+        </div>
+      </section>
+
+      <section class="section fade-up" id="about">
+        <div class="section__content">
+          <div class="about__media">
+            <picture class="about__picture">
+              <source
+                srcset="./assets/me-wide.jpeg"
+                media="(min-width: 768px)"
+              />
+              <img
+                class="about__image"
+                src="./assets/me-square.jpeg"
+                alt="Portrait of Joseph Markus"
+              />
+            </picture>
+          </div>
+          <div class="about__body">
+            <h2 class="section__heading">About me</h2>
+            <p>
+              I started my career at sixteen, long before I wrote my first line
+              of code.
+            </p>
+
+            <p>
+              My passion for street photography led me to become only the second
+              photographer for Lithuania's largest news website, DELFI. One of
+              my photos earned second place in the 2009 Lithuanian Press
+              Photography Awards in the News category and was published in the
+              annual book of winners.</p>
+              
+              <p>That early experience taught me how to see
+              detail — and how much craft and clarity matter when you want to
+              make something resonate.
+            </p>
+            <p>
+              When I moved to the UK in 2010 to study film and television, I
+              realised that what truly drew me in wasn't just capturing stories
+              — it was designing the systems that helped people interact with
+              them. So I taught myself to code.
+            </p>
+
+            <p>
+              Starting small, I learned HTML and CSS, then began working for a
+              small agency as their first in-house web developer. Later, at
+              Ostmodern, I contributed to projects for BBC Player (for BBC
+              Studios), the Olympic Channel, and BFI's Britain on Film —
+              learning how form and function come together in good design. My
+              background in photography and my love of Braun-inspired, “just
+              enough” design gave me a foundation for the interface sensibility
+              I bring to my work today.
+            </p>
+
+            <p>
+              At GoCardless, I was the first front-end engineer hired directly
+              under the design team, working on the marketing site to improve
+              usability, accessibility, and how the brand communicated visually.
+              Later, at Simply Business, I joined as a Mid-Level Engineer, was
+              promoted to Senior, and then to Engineering Lead — a role that, in
+              most companies, would be called Engineering Manager. I lead a
+              distributed team across three time zones, breaking down complex
+              projects into manageable pieces that we refine together before
+              engineers pick them up.
+            </p>
+
+            <p>
+              While I can lead and manage effectively, my core passion lies in
+              hands-on engineering — writing code, shaping architectures, and
+              delivering work that feels solid and thoughtfully made.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section fade-up" id="projects">
+        <div class="section__content">
+          <h2 class="section__heading">Independent projects</h2>
+          <p>
+            Outside full-time work, I enjoy exploring ideas through small,
+            self-driven projects — each using a different toolset or
+            architectural pattern to solve real, tangible problems.
+          </p>
+          <ul class="projects__list">
+            <li class="projects__item">
+              <div class="projects__title">SetSweat</div>
+              <p>
+                An offline-first gym app born from frustration with
+                internet-heavy fitness tools. It lets you create workouts, log
+                progress, and reference them easily at the gym.
+              </p>
+              <p class="projects__stack-label">Stack:</p>
+              <ul class="projects__stack">
+                <li class="projects__stack-item">TanStack Start</li>
+                <li class="projects__stack-item">Tailwind CSS</li>
+                <li class="projects__stack-item">Vite</li>
+                <li class="projects__stack-item">PouchDB</li>
+                <li class="projects__stack-item">CouchDB</li>
+                <li class="projects__stack-item">TypeScript</li>
+              </ul>
             </li>
-            <li>
-              Used research insights to refine product experience and improve
-              the platform's commercial effectiveness.
+            <li class="projects__item">
+              <div class="projects__title">Essential Nose</div>
+              <p>
+                A web app that helps users explore essential oils and discover
+                blends. It was inspired by a diffuser purchase and the thought
+                that there must be a clearer, more structured way to learn about
+                scent pairing.
+              </p>
+              <p class="projects__stack-label">Stack:</p>
+              <ul class="projects__stack">
+                <li class="projects__stack-item">SolidJS</li>
+                <li class="projects__stack-item">Tailwind CSS</li>
+                <li class="projects__stack-item">TypeScript</li>
+              </ul>
+            </li>
+            <li class="projects__item">
+              <div class="projects__title">Currency Exchange App</div>
+              <p>
+                A lightweight currency converter powered by a Web Worker. It
+                fetches daily exchange rates via a cron job, stores them in
+                Cloudflare's D1 database, and provides fast offline access.
+              </p>
+              <p class="projects__stack-label">Stack:</p>
+              <ul class="projects__stack">
+                <li class="projects__stack-item">SolidJS</li>
+                <li class="projects__stack-item">Tailwind CSS</li>
+                <li class="projects__stack-item">Web Workers</li>
+                <li class="projects__stack-item">Cloudflare D1</li>
+              </ul>
             </li>
           </ul>
-        </li>
-        <li>
-          <a href="https://gocardless.com"
-            ><img src="./assets/gocardless.svg" alt="GoCardless" height="20"
-          /></a>
-          <h3>Software Development Engineer I (Dec 2016 - Dec 2018)</h3>
-          <ul>
-            <li>
-              Improved conversion by leading A/B testing and implementing a
-              responsive design overhaul of the marketing site
-            </li>
-            <li>
-              Integrated a CMS to streamline content updates and support faster
-              iteration cycles.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="https://www.ostmodern.co"
-            ><img
-              src="./assets/ostmodern.svg"
-              alt="Ostmodern"
-              width="141"
-              height="20"
-            />
-          </a>
-          <h3>Front End Developer (Feb 2015 - Dec 2016)</h3>
-          <ul>
-            <li>
-              Built front-end interfaces for high-profile projects, including
-              BBC Player (Singapore & Malaysia) and BFI Player
-            </li>
-          </ul>
-        </li>
-      </ol>
+          <p>
+            Each project reflects how I think: start with a real-world problem,
+            choose the right tools, design around clarity, and build something
+            that feels honest and durable.
+          </p>
+        </div>
+      </section>
+
+      <section class="section fade-up" id="values">
+        <div class="section__content">
+          <h2 class="section__heading">What drives me</h2>
+          <p>
+            I believe that great engineering is about integrity and invisible
+            craftsmanship — not just what you can see, but what you can't.
+          </p>
+          <p>
+            Like the carpenter who builds the back of a cabinet with as much
+            care as the front, I approach every project with respect for detail,
+            structure, and the people who will depend on it.
+          </p>
+          <p>
+            I care deeply about how products feel to use and how technology
+            supports design rather than overwhelms it. My focus is on building
+            systems and interfaces that are fast, clear, and maintainable — and
+            on helping teams work in a way that values communication as much as
+            technical skill.
+          </p>
+        </div>
+      </section>
+
+      <section class="section fade-up" id="outside">
+        <div class="section__content">
+          <h2 class="section__heading">Outside of work</h2>
+          <p>
+            Outside of work, I care deeply about maintaining a sense of balance and perspective.</p>
+          </p>
+          <p>
+            I meditate regularly, weight train three times a week, and pay attention to healthy food and recovery — habits that help me stay focused and grounded.
+          </p>
+          <p>
+            I enjoy reading and learning about how people and systems work — whether through Brené Brown's books on vulnerability, Radical Candour, The Culture Map, or The Design of Everyday Things. I also keep up with the latest in web development through the React Status newsletter and Frontend Masters courses.
+          </p>
+          <p>
+            I also love to travel and explore new places whenever I can.
+          </p>
+        </div>
+      </section>
+
+      <section class="section fade-up" id="opportunities">
+        <div class="section__content">
+          <h2 class="section__heading">Opportunities</h2>
+          <p>I'm currently based in London, UK and preparing to relocate to Italy.</p>
+          <p>I'm looking for remote-first opportunities where I can work with people who are passionate about their craft — people who value openness, care about communication, and see good collaboration as the foundation for great work.</p>
+          <p>If you're building something thoughtful and remote-friendly, I'd love to connect — feel free to <a href="mailto:tarpons.violas-0z@icloud.com">reach out</a>.</p>
+        </div>
+      </section>
     </main>
-    <footer>
-      <p>
-        <strong>Bult with just enough.</strong> This single HTML page was
-        handcrafted without frameworks or JavaScript.
-      </p>
-      <ul role="list" id="footer-links">
-        <li>
-          <a href="https://github.com/josephmarkus/josephmarkus"
-            >View the source code</a
-          >
-        </li>
-        <li>Hosted on AWS S3.</li>
-        <li>
-          <ul role="list" id="external-links">
-            <li>
-              <a href="http://github.com/josephmarkus"
-                ><img src="./assets/github.svg" alt="GitHub" height="20"
-              /></a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/joseph-markus-116342250"
-                ><img src="./assets/linkedin.svg" alt="LinkedIn" height="20"
-              /></a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+
+    <footer class="site-footer">
+      &copy; 2025 Joseph Markus · Made with care and precision ·
+      <a href="https://github.com/josephmarkus" target="_blank" rel="noopener noreferrer">GitHub</a> ·
+      <a href="https://www.linkedin.com/in/joseph-markus-116342250" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </footer>
+
+    <noscript
+      ><style>
+        .fade-up {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style></noscript
+    >
+
+    <script>
+      (function () {
+        document.documentElement.classList.replace("no-js", "js");
+
+        // Fade in
+        const fadeEls = document.querySelectorAll(".fade-up");
+        const reveal = () =>
+          fadeEls.forEach((el) =>
+            requestAnimationFrame(() => el.classList.add("fade-up--complete"))
+          );
+        if (document.readyState === "loading")
+          document.addEventListener("DOMContentLoaded", reveal, { once: true });
+        else reveal();
+
+        // Smooth scroll only for header nav
+        const prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+        const nav = document.querySelector(".site-header__nav");
+        if (nav && !prefersReduced) {
+          nav.addEventListener("click", (e) => {
+            const link = e.target.closest('a[href^="#"]');
+            if (!link) return;
+            const id = link.getAttribute("href").slice(1);
+            const target = document.getElementById(id);
+            if (!target) return;
+
+            e.preventDefault();
+            const offset =
+              parseInt(
+                getComputedStyle(document.documentElement).getPropertyValue(
+                  "--header-height"
+                )
+              ) || 64;
+            const top =
+              target.getBoundingClientRect().top +
+              window.scrollY -
+              (offset + 16);
+            window.scrollTo({ top, behavior: "smooth" });
+            history.pushState(null, "", "#" + id);
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
