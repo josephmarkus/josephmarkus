@@ -240,6 +240,10 @@
         font-weight: var(--fw-normal);
         font-size: clamp(1.4rem, 1rem + 1vw, 1.6rem);
         color: var(--clr-accent);
+        margin: 0;
+      }
+      .projects__link {
+        margin-top: 0;
       }
       .projects__stack-label {
         font-size: 0.9rem;
@@ -425,7 +429,11 @@
           </p>
           <ul class="projects__list">
             <li class="projects__item">
-              <div class="projects__title">SetSweat</div>
+              <h3 class="projects__title">SetSweat</h3>
+              <p class="projects__link">
+                <a href="https://www.setsweat.com/" target="_blank" rel="noopener noreferrer">https://www.setsweat.com/</a>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-left: 0.25rem;"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              </p>
               <p>
                 An offline-first gym app born from frustration with
                 internet-heavy fitness tools. It lets you create workouts, log
@@ -434,15 +442,19 @@
               <p class="projects__stack-label">Stack:</p>
               <ul class="projects__stack">
                 <li class="projects__stack-item">TanStack Start</li>
-                <li class="projects__stack-item">Tailwind CSS</li>
-                <li class="projects__stack-item">Vite</li>
-                <li class="projects__stack-item">PouchDB</li>
-                <li class="projects__stack-item">CouchDB</li>
                 <li class="projects__stack-item">TypeScript</li>
+                <li class="projects__stack-item">Tailwind CSS</li>
+                <li class="projects__stack-item">PouchDB/CouchDB</li>
+                <li class="projects__stack-item">TanStack Query & Router</li>
+                <li class="projects__stack-item">Vite</li>
               </ul>
             </li>
             <li class="projects__item">
-              <div class="projects__title">Essential Nose</div>
+              <h3 class="projects__title">Essential Nose</h3>
+              <p class="projects__link">
+                <a href="https://www.essentialnose.com/" target="_blank" rel="noopener noreferrer">https://www.essentialnose.com/</a>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-left: 0.25rem;"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              </p>
               <p>
                 A web app that helps users explore essential oils and discover
                 blends. It was inspired by a diffuser purchase and the thought
@@ -452,12 +464,19 @@
               <p class="projects__stack-label">Stack:</p>
               <ul class="projects__stack">
                 <li class="projects__stack-item">SolidJS</li>
-                <li class="projects__stack-item">Tailwind CSS</li>
                 <li class="projects__stack-item">TypeScript</li>
+                <li class="projects__stack-item">Tailwind CSS</li>
+                <li class="projects__stack-item">Vite</li>
+                <li class="projects__stack-item">Vitest</li>
+                <li class="projects__stack-item">Sharp</li>
               </ul>
             </li>
             <li class="projects__item">
-              <div class="projects__title">Currency Exchange App</div>
+              <h3 class="projects__title">PocketFX</h3>
+              <p class="projects__link">
+                <a href="https://www.pocketfx.app/" target="_blank" rel="noopener noreferrer">https://www.pocketfx.app/</a>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-left: 0.25rem;"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              </p>
               <p>
                 A lightweight currency converter powered by a Web Worker. It
                 fetches daily exchange rates via a cron job, stores them in
@@ -466,9 +485,11 @@
               <p class="projects__stack-label">Stack:</p>
               <ul class="projects__stack">
                 <li class="projects__stack-item">SolidJS</li>
+                <li class="projects__stack-item">TypeScript</li>
                 <li class="projects__stack-item">Tailwind CSS</li>
-                <li class="projects__stack-item">Web Workers</li>
-                <li class="projects__stack-item">Cloudflare D1</li>
+                <li class="projects__stack-item">Cloudflare Workers & D1</li>
+                <li class="projects__stack-item">Vite</li>
+                <li class="projects__stack-item">Progressive Web App</li>
               </ul>
             </li>
           </ul>
