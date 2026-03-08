@@ -435,18 +435,32 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-left: 0.25rem;"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
               </p>
               <p>
-                An offline-first gym app born from frustration with
-                internet-heavy fitness tools. It lets you create workouts, log
-                progress, and reference them easily at the gym.
+                Every new release of gym tracking apps brought fancier
+                onboarding, embedded videos, and social feeds - all designed to
+                convert free users into paying subscribers. The basics suffered.
+                What struck me was how many serious, consistent lifters had
+                quietly given up and gone back to pen and paper. SetSweat is
+                built for those people: record an exercise, track sets and reps,
+                note the weight, see progress over time. Works fully offline via
+                PouchDB synced to CouchDB, so you can log a set in the basement
+                of a gym with no signal and trust your data is safe. Still a
+                work in progress.
               </p>
               <p class="projects__stack-label">Stack:</p>
               <ul class="projects__stack">
-                <li class="projects__stack-item">TanStack Start</li>
+                <li class="projects__stack-item">TanStack Start (React 19)</li>
                 <li class="projects__stack-item">TypeScript</li>
-                <li class="projects__stack-item">Tailwind CSS</li>
+                <li class="projects__stack-item">Tailwind CSS v4</li>
+                <li class="projects__stack-item">TanStack Router & Query</li>
+                <li class="projects__stack-item">Zod + React Hook Form</li>
                 <li class="projects__stack-item">PouchDB/CouchDB</li>
-                <li class="projects__stack-item">TanStack Query & Router</li>
+                <li class="projects__stack-item">Sentry</li>
+                <li class="projects__stack-item">PostHog</li>
                 <li class="projects__stack-item">Vite</li>
+                <li class="projects__stack-item">Biome</li>
+                <li class="projects__stack-item">Vitest</li>
+                <li class="projects__stack-item">Fly.io</li>
+                <li class="projects__stack-item">Docker</li>
               </ul>
             </li>
             <li class="projects__item">
@@ -456,19 +470,22 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-left: 0.25rem;"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
               </p>
               <p>
-                A web app that helps users explore essential oils and discover
-                blends. It was inspired by a diffuser purchase and the thought
-                that there must be a clearer, more structured way to learn about
-                scent pairing.
+                A few years ago I bought a Muji essential oil diffuser. When I
+                asked staff how to blend oils, the answer was always the same:
+                just mix what smells nice. Online wasn't much better. Perfumery
+                has real rules — blend across note types, don't overload base
+                notes — so I did the research, built the data model, and turned
+                it into Essential Nose. Start from an oil you already own, pick
+                a goal (sleep, focus, energy), and get a blend recipe that
+                actually makes sense.
               </p>
               <p class="projects__stack-label">Stack:</p>
               <ul class="projects__stack">
-                <li class="projects__stack-item">SolidJS</li>
+                <li class="projects__stack-item">React</li>
                 <li class="projects__stack-item">TypeScript</li>
                 <li class="projects__stack-item">Tailwind CSS</li>
                 <li class="projects__stack-item">Vite</li>
                 <li class="projects__stack-item">Vitest</li>
-                <li class="projects__stack-item">Sharp</li>
               </ul>
             </li>
             <li class="projects__item">
@@ -478,9 +495,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; vertical-align: middle; margin-left: 0.25rem;"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
               </p>
               <p>
-                A lightweight currency converter powered by a Web Worker. It
-                fetches daily exchange rates via a cron job, stores them in
-                Cloudflare's D1 database, and provides fast offline access.
+                Currency converter apps are bloated with ads, paywalls, and
+                poor offline support — exactly when you need them most. PocketFX
+                is a no-nonsense reference tool built for travel: open it in a
+                shop abroad, get a ballpark figure, move on. Rates are fetched
+                daily via a cron job and cached to your device, so it works even
+                when you're roaming without data or signal.
               </p>
               <p class="projects__stack-label">Stack:</p>
               <ul class="projects__stack">
